@@ -4,10 +4,13 @@ import os
 
 
 def run_simulation():
-    # Get the path of the current directory to ensure scripts are found
+    # Get the absolute path of the current directory to locate server and client scripts
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    print("Starting Server...")
-    # Launch server.py in a new Terminal window using AppleScript (macOS)
+
+    print("--- Starting Chat System Simulation ---")
+
+    # 1. Launch the Server
+    print("[SIMULATION] Launching Chat Server...")
     subprocess.Popen(
         [
             "osascript",
@@ -15,33 +18,29 @@ def run_simulation():
             f'tell app "Terminal" to do script "python3 {current_dir}/server.py"',
         ]
     )
-    # Pause to allow the server to initialize and start listening for connections
+
+    # Wait for the server to initialize and start listening on the port
     time.sleep(2)
 
-    print("Starting Client: Yossi...")
-    # Launch a client instance for 'Yossi' in a new Terminal window
-    subprocess.Popen(
-        [
-            "osascript",
-            "-e",
-            f'tell app "Terminal" to do script "python3 {current_dir}/client.py Yossi"',
-        ]
-    )
-    # Brief pause between client launches to prevent connection collisions
-    time.sleep(1)
+    # 2. List of clients to launch automatically
+    clients = ["Yossi", "Dana", "Roni"]
 
-    print("Starting Client: Dana...")
-    # Launch a client instance for 'dana' in a new Terminal window
-    subprocess.Popen(
-        [
-            "osascript",
-            "-e",
-            f'tell app "Terminal" to do script "python3 {current_dir}/client.py Dana"',
-        ]
-    )
+    # 3. Launch each client in a separate Terminal window
+    for name in clients:
+        print(f"[SIMULATION] Launching Client Instance: {name}...")
+        subprocess.Popen(
+            [
+                "osascript",
+                "-e",
+                f'tell app "Terminal" to do script "python3 {current_dir}/client.py {name}"',
+            ]
+        )
+        # Brief pause to ensure orderly connection to the server
+        time.sleep(1)
 
-    print("\nSimulation running. Use the separate Terminal windows to chat!")
-    print("Example: In Yossi's window type 'Dana:Hello from Yossi'")
+    print("\n[SUCCESS] Simulation is running.")
+    print("Instructions: Use the opened Terminal windows to communicate.")
+    print("Format: 'RecipientName:YourMessage' (e.g., 'Dana:Hello')")
 
 
 if __name__ == "__main__":
