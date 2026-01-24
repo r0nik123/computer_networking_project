@@ -23,7 +23,7 @@ class ChatClient:
                 message = self.client_socket.recv(1024).decode("utf-8")
                 if message:
                     # Format the incoming message for better visibility
-                    # \n ensures it starts on a new line, [RECEIVE] marks it as incoming
+                    # ensures it starts on a new line, [RECEIVE] marks it as incoming
                     print(f"\n\n[RECEIVE] {message}")
                     # Re-print the input prompt so the user knows they can still type
                     print("Send [Target:Message] or 'quit': ", end="", flush=True)

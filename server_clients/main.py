@@ -9,7 +9,7 @@ def run_simulation():
 
     print("--- Starting Chat System Simulation ---")
 
-    # 1. Launch the Server
+    # Launch the Server
     print("[SIMULATION] Launching Chat Server...")
     subprocess.Popen(
         [
@@ -22,10 +22,10 @@ def run_simulation():
     # Wait for the server to initialize and start listening on the port
     time.sleep(2)
 
-    # 2. List of clients to launch automatically
+    # List of clients to launch automatically
     clients = ["Yossi", "Dana", "Roni"]
 
-    # 3. Launch each client in a separate Terminal window
+    # Launch each client in a separate Terminal window
     for name in clients:
         print(f"[SIMULATION] Launching Client Instance: {name}...")
         subprocess.Popen(

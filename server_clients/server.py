@@ -24,7 +24,7 @@ class ChatServer:
         """
         username = ""
         try:
-            # Step A: Receive the username from the client immediately upon connection
+            # Receive the username from the client immediately upon connection
             username = client_socket.recv(1024).decode("utf-8").strip()
 
             # Register the client in the shared dictionary for message routing
@@ -32,7 +32,7 @@ class ChatServer:
             print(f"[SERVER] {username} connected from {address}")
 
             while True:
-                # Step B: Wait for an incoming message in the format "Target:Message"
+                # Wait for an incoming message in the format "Target:Message"
                 data = client_socket.recv(1024).decode("utf-8")
                 if not data:
                     # If no data is received, the client likely disconnected
@@ -66,7 +66,7 @@ class ChatServer:
             client_socket.close()
 
     def start(self):
-        # Listen for incoming connections (allow a backlog of up to 5)
+        # Listen for incoming connections (allow up to 5)
         self.server.listen(5)
         print(f"[SERVER] Listening on {self.host}:{self.port}...")
 
@@ -75,7 +75,7 @@ class ChatServer:
             conn, addr = self.server.accept()
 
             # Spawn a new thread to handle this specific client concurrently
-            # We pass 'self.handle_client' because it's now a method of the class
+            # pass 'self.handle_client' because it's a method of the class
             thread = threading.Thread(target=self.handle_client, args=(conn, addr))
             thread.start()
 
